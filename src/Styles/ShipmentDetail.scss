@@ -1,0 +1,68 @@
+.ShipmentDetail {
+    .MuiGrid-item {
+        >.MuiPaper-rounded {
+            padding: 20px;
+
+            .edit-name {
+                float: right;
+                position: relative;
+                top: -5px;
+                background-color: rgba(0, 0, 0, 0.04);
+            }
+        }
+
+        .id-back-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            h3 {
+                font-size: 30px;
+                font-weight: 400;
+                margin: 0;
+            }
+        }
+
+        &.haveExpandable {
+            .MuiPaper-root {
+                padding: 5px;
+            }
+
+            .MuiCollapse-container {
+                .MuiExpansionPanelDetails-root {
+                    display: block;
+
+                    .cargo-details,
+                    .services-details {
+                        display: block;
+                        width: 100%;
+                        margin: 10px 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.edit-inside-popover {
+    .MuiPopover-paper {
+        padding: 20px;
+
+        >span {
+            margin-bottom: 20px;
+            display: block;
+            font-weight: bold;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            input {
+                width: 250px;
+            }
+            button {
+                margin-top: 20px;
+            }
+        }
+    }
+}
