@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Loading from './Loading';
 import '../Styles/ShipmentsList.scss';
 
+//Add column header defination.
 const columns = [
     {
         name: 'ID',

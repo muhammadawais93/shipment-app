@@ -29,6 +29,7 @@ class ShipmentDetail extends Component {
         this.fetchShipment();
     }
 
+    //fetch shipment with url id
     fetchShipment() {
         fetch(`${process.env.REACT_APP_API_URL}/shipments/${this.props.match.params.id}`)
             // We get the API response and receive data in JSON format...
@@ -44,6 +45,7 @@ class ShipmentDetail extends Component {
             .catch(error => console.log(error));
     }
 
+    //update the name of shipment in db.json
     async udpateShipment(event) {
         event.preventDefault();
 
