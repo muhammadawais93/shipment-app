@@ -13,7 +13,7 @@ class ShipmentsProvider extends Component {
     }
 
     fetchShipments() {
-        fetch(`http://localhost:1123/shipments`)
+        fetch(`${process.env.REACT_APP_API_URL}/shipments`)
             // We get the API response and receive data in JSON format...
             .then(response => response.json())
             // ...then we update the users state

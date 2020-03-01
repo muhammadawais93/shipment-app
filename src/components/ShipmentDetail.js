@@ -30,7 +30,7 @@ class ShipmentDetail extends Component {
     }
 
     fetchShipment() {
-        fetch(`http://localhost:1123/shipments/${this.props.match.params.id}`)
+        fetch(`${process.env.REACT_APP_API_URL}/shipments/${this.props.match.params.id}`)
             // We get the API response and receive data in JSON format...
             .then(response => response.json())
             // ...then we update the users state
@@ -53,7 +53,7 @@ class ShipmentDetail extends Component {
             Shipment: shipmentCopied
         });
 
-        const response = await fetch(`http://localhost:1123/shipments/${this.props.match.params.id}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/shipments/${this.props.match.params.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(shipmentCopied),
