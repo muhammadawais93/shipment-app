@@ -14,9 +14,15 @@ import { Link } from "react-router-dom";
 import '../Styles/ShipmentDetail.scss';
 
 class ShipmentDetail extends Component {
-    state = {
-        Shipment: null,
-        isLoading: false,
+    constructor(props) {
+        super(props);
+        this.state = {
+            Shipment: null,
+            isLoading: false,
+        }
+
+        this.udpateShipment = this.udpateShipment.bind(this);
+        this.input = React.createRef();
     }
 
     componentDidMount() {
@@ -24,7 +30,7 @@ class ShipmentDetail extends Component {
     }
 
     fetchShipment() {
-        fetch(`http://localhost:1122/shipments/${this.props.match.params.id}`)
+        fetch(`http://localhost:1123/shipments/${this.props.match.params.id}`)
             // We get the API response and receive data in JSON format...
             .then(response => response.json())
             // ...then we update the users state
@@ -35,7 +41,24 @@ class ShipmentDetail extends Component {
                 })
             )
             // Catch any errors we hit and update the app
-            .catch(error => console.log('something went wrong.'));
+            .catch(error => console.log(error));
+    }
+
+    async udpateShipment(event) {
+        event.preventDefault();
+
+        let shipmentCopied = { ...this.state.Shipment };
+        shipmentCopied.name = this.input.current.value;
+        this.setState({
+            Shipment: shipmentCopied
+        });
+
+        const response = await fetch(`http://localhost:1123/shipments/${this.props.match.params.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(shipmentCopied),
+        });
+        console.log(await response.json());
     }
 
     render() {
@@ -59,26 +82,27 @@ class ShipmentDetail extends Component {
                                     </Link>
                                 </Paper>
                             </Grid>
-                            <Grid item xs={12} sm={4}>
+                            <Grid item xs={12} md={4}>
                                 <Paper className="">
                                     <span>Name: </span>
                                     <span><b>{shipment.name}</b></span>
                                     <UpdateName>
                                         <span>Update Shipment Name</span>
-                                        <form className="udpate-form" noValidate autoComplete="off">
+                                        <form className="udpate-form" noValidate autoComplete="off" onSubmit={this.udpateShipment}>
                                             <TextField
                                                 label="Name"
                                                 id="filled-size-small"
                                                 defaultValue={shipment.name}
                                                 size="small"
+                                                inputRef={this.input}
                                             />
-                                            <Button variant="contained" color="primary">Update</Button>
+                                            <Button variant="contained" color="primary" type="submit">Update</Button>
                                         </form>
                                     </UpdateName>
                                 </Paper>
                             </Grid>
 
-                            <Grid item xs={12} sm={4} className="haveExpandable">
+                            <Grid item xs={12} md={4} className="haveExpandable">
                                 <ExpansionPanel>
                                     <ExpansionPanelSummary
                                         expandIcon={<ExpandMoreIcon />}
@@ -103,37 +127,37 @@ class ShipmentDetail extends Component {
                                                     <span><b>{val.volume}</b></span>
                                                 </div>
                                             </ExpansionPanelDetails>
-                                            {(shipment.cargo.length != index + 1) && <hr />}
+                                            {(shipment.cargo.length !== index + 1) && <hr />}
                                         </div>
                                     )}
                                 </ExpansionPanel>
                             </Grid>
 
-                            <Grid item xs={12} sm={4}>
+                            <Grid item xs={12} md={4}>
                                 <Paper className="">
                                     <span>Mode: </span>
                                     <span><b>{shipment.mode}</b></span>
                                 </Paper>
                             </Grid>
-                            <Grid item xs={6} sm={4}>
+                            <Grid item xs={12} md={4}>
                                 <Paper className="">
                                     <span>Type: </span>
                                     <span><b>{shipment.type}</b></span></Paper>
                             </Grid>
-                            <Grid item xs={6} sm={4}>
+                            <Grid item xs={12} md={4}>
                                 <Paper className="">
                                     <span>Destination: </span>
                                     <span><b>{shipment.destination}</b></span>
                                 </Paper>
                             </Grid>
-                            <Grid item xs={6} sm={4}>
+                            <Grid item xs={12} md={4}>
                                 <Paper className="">
                                     <span>Origin: </span>
                                     <span><b>{shipment.origin}</b></span>
                                 </Paper>
                             </Grid>
 
-                            <Grid item xs={12} sm={4} className="haveExpandable">
+                            <Grid item xs={12} md={4} className="haveExpandable">
                                 <ExpansionPanel>
                                     <ExpansionPanelSummary
                                         expandIcon={<ExpandMoreIcon />}
@@ -150,25 +174,25 @@ class ShipmentDetail extends Component {
                                                     <span><b>{val.type}</b></span>
                                                 </div>
                                             </ExpansionPanelDetails>
-                                            {(shipment.services.length != index + 1) && <hr />}
+                                            {(shipment.services.length !== index + 1) && <hr />}
                                         </div>
                                     )}
                                 </ExpansionPanel>
                             </Grid>
 
-                            <Grid item xs={6} sm={4}>
+                            <Grid item xs={12} md={4}>
                                 <Paper className="">
                                     <span>Total: </span>
                                     <span><b>{shipment.total}</b></span>
                                 </Paper>
                             </Grid>
-                            <Grid item xs={6} sm={4}>
+                            <Grid item xs={12} md={4}>
                                 <Paper className="">
                                     <span>Status: </span>
                                     <span><b>{shipment.status}</b></span>
                                 </Paper>
                             </Grid>
-                            <Grid item xs={6} sm={4}>
+                            <Grid item xs={12} md={4}>
                                 <Paper className="">
                                     <span>userId: </span>
                                     <span><b>{shipment.userId}</b></span>

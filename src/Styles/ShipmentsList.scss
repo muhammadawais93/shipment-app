@@ -1,0 +1,30 @@
+.shipment_app {
+    .search-id {
+        z-index: 99;
+        float: right;
+        position: relative;
+        right: 3%;
+        top: 75px;
+        #standard-basic {
+            width: 250px;
+        }   
+    }
+    .rdt_TableHeader {
+        padding-bottom: 60px;
+    }
+}
+
+@media only screen and (min-width: 767px) {
+    .shipment_app {
+        .search-id {
+            z-index: 99;
+            float: right;
+            position: relative;
+            right: 3%;
+            top: 30px;
+            #standard-basic {
+                width: 250px;
+            }   
+        }
+    }
+}
